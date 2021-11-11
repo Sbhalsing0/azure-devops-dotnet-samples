@@ -20,11 +20,4 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-# YAML file in the release branch
-schedules:
-- cron: "*/3 * * * *"
-  displayName: Daily midnight build
-  branches:
-    include:
-    - main
     
