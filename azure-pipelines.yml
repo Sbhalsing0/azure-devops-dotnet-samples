@@ -22,7 +22,7 @@ steps:
 
 # YAML file in the release branch
 schedules:
-- cron: "3 * * * *"
+- cron: "1 * * * *"
   displayName: Daily midnight build
   branches:
     include:
