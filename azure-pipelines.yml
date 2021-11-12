@@ -21,3 +21,8 @@ steps:
     configuration: '$(buildConfiguration)'
 
     
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(build.artifactStagingDirectory)/RemoteData.$(Build.BuildNumber).zip'
+    ArtifactName: 'RemoteData.$(Build.BuildNumber)'
+    publishLocation: 'Container'
