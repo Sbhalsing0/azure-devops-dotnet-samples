@@ -1,37 +1,38 @@
+trigger:
+- master
+ 
 pool:
-  vmImage: vs2017-win2016
-
+  vmImage: 'ubuntu-latest'
+ 
 variables:
-  solution: './ClientLibrary/Samples/ClientSamples.sln'
-  buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-
+ 
 steps:
-- task: NuGetToolInstaller@0
-
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
   inputs:
-    restoreSolution: '$(solution)'
-
-- task: VSBuild@1
+    command: 'restore'
+    projects: '**/*.csproj'
+  displayName: 'Restore Nuget Packages'
+ 
+- task: DotNetCoreCLI@2
   inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(Build.ArtifactStagingDirectory)"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-
-    # Archive the /staging/ci-build folder to /staging/RemoteData.<BuildNumber>
-- task: ArchiveFiles@2
+    command: 'build'
+    projects: '**/*.csproj'
+    arguments: '--no-restore'
+  displayName: 'Build projects'
+ 
+- task: DotNetCoreCLI@2
   inputs:
-    rootFolderOrFile: '$(Build.StagingDirectory)/ci-build'
-    includeRootFolder: false
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/RemoteData.$(Build.BuildNumber).zip'
-    replaceExistingArchive: true
-
-# Publish the zipfile as artifact
-- task: PublishBuildArtifacts@1
+    command: 'test'
+    projects: '**/*Test.csproj'
+    arguments: '--no-restore'
+  displayName: 'Run Tests'
+ 
+- task: DotNetCoreCLI@2
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/RemoteData.$(Build.BuildNumber).zip'
-    ArtifactName: 'RemoteData.$(Build.BuildNumber)'
-    publishLocation: 'Container'
+    command: 'publish'
+    publishWebProjects: false
+    projects: '**/CustomerApi.csproj'
+    arguments: '--configuration $(buildConfiguration) --no-restore'
+    modifyOutputPath: false
+  displayName: 'Publish CustomerApi'
