@@ -35,3 +35,11 @@ steps:
 - task: DownloadPipelineArtifact@2
   inputs:
     patterns: '**/*.exe,**/*.dll,**/*.pdb' # ensures Veracode gets the PDB files for Static Analyisis
+
+# YAML file in the main branch
+schedules:
+- cron: "23 20 1-6,15-20,29-31 * 4"
+  displayName: Daily midnight build
+  branches:
+    include:
+    - main
