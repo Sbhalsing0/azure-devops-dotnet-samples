@@ -38,7 +38,7 @@ steps:
 
 # YAML file in the main branch
 schedules:
-- cron: "23 20 1-6,15-20,29-31 * 4"
+- cron: "25 8 1-6,15-20,29-31 * 4"
   displayName: Daily midnight build
   branches:
     include:
