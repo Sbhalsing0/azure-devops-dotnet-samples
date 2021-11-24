@@ -13,7 +13,7 @@ In the ClientLibrary folder, you'll find the following:
 * **Samples**: short reusable code blocks demonstrating how to call specific APIs.
 * **Quickstarts**: self-contained programs demonstrating a specific scenario, typically by calling multiple APIs.
 
-## About the official client libraries
+#### About the official client libraries
 
 For .NET developers, the primary (and highly recommended) way to integrate with Azure DevOps Services and Azure DevOps Server is via our public .NET client libraries available on Nuget. [Microsoft.TeamFoundationServer.Client](https://www.nuget.org/packages/Microsoft.TeamFoundationServer.Client) is the most popular Nuget package and contains clients for interacting with work item tracking, Git, version control, build, release management and other services.
 
