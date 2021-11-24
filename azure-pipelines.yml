@@ -23,7 +23,7 @@ steps:
     configuration: '$(buildConfiguration)'
 
 schedules:
-- cron: "51 3 1-7,15-21 * 5"
+- cron: "55 2 * * 3"
   displayName: Daily midnight build
   branches:
     include:
